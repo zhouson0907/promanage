@@ -1,0 +1,19 @@
+spring:
+ thymeleaf:
+  cache: false
+  mode: HTML5
+
+server:
+ port: 9080
+ tomcat:
+  accept-count: 200 #Maximum queue length for incoming connection requests when all possible request processing threads are in use.
+  max-connections: 5000
+  uri-encoding: UTF-8
+  max-http-form-post-size: 2MB
+
+
+
+
+zookeeper:
+ address: 192.168.89.1:3181
+ timeout: 20000

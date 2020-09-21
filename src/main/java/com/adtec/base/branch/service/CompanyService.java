@@ -28,4 +28,6 @@ public interface CompanyService {
      * @return
      */
     List<Company> getAllCompany();
+
+
 }

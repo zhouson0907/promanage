@@ -74,7 +74,7 @@ public interface DemandTrackMapper {
             "from t_demand_track",
             "where id = #{id,jdbcType=INTEGER} and demand_id = #{demandId,jdbcType=VARCHAR}"
     })
-    @ResultMap("com.adtec.daily.dao.demand.DemandTrackMapper.BaseResultMap")
+    @ResultMap("com.adtec.daily.demand.dao.DemandTrackMapper.BaseResultMap")
     DemandTrackVo selectByPrimaryKey(DemandTrackVo key);
 
     int updateByExampleSelective(@Param("record") DemandTrack record, @Param("example") DemandTrackExample example);

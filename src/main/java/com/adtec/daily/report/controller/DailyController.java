@@ -1,6 +1,8 @@
 package com.adtec.daily.report.controller;
 
 
+import com.adtec.base.branch.entity.Department;
+import com.adtec.base.branch.service.CompanyService;
 import com.adtec.base.common.Msg;
 import com.adtec.base.user.entity.User;
 import com.adtec.base.user.entity.UserExample;
@@ -8,11 +10,9 @@ import com.adtec.base.user.service.UserService;
 import com.adtec.base.util.Constants;
 import com.adtec.base.util.DateUtil;
 import com.adtec.base.util.TemplateParseUtil;
-import com.adtec.daily.project.entity.Department;
 import com.adtec.daily.project.entity.Project;
 import com.adtec.daily.project.entity.ProjectTemplate;
 import com.adtec.daily.project.entity.ProjectTemplateExample;
-import com.adtec.daily.project.service.CompanyService;
 import com.adtec.daily.project.service.ProjectService;
 import com.adtec.daily.project.service.ProjectTemplateService;
 import com.adtec.daily.report.entity.*;

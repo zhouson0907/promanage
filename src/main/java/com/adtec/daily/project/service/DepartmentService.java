@@ -2,7 +2,8 @@ package com.adtec.daily.project.service;
 
 
 
-import com.adtec.daily.project.entity.Department;
+
+import com.adtec.base.branch.entity.Department;
 
 import java.util.List;
 

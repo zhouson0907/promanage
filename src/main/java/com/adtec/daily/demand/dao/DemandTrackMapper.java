@@ -2,12 +2,7 @@ package com.adtec.daily.demand.dao;
 import com.adtec.daily.demand.entity.DemandTrack;
 import com.adtec.daily.demand.entity.DemandTrackExample;
 import com.adtec.daily.demand.vo.DemandTrackVo;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -74,6 +69,41 @@ public interface DemandTrackMapper {
             "from t_demand_track",
             "where id = #{id,jdbcType=INTEGER} and demand_id = #{demandId,jdbcType=VARCHAR}"
     })
+   /* @Results(
+            id="demandTrackMapper", value= {
+            @Result(column = "id", property = "id", id = true),
+            @Result(column = "project_id", property = "projectId"),
+            @Result(column = "demand_id ", property = "demandId"),
+            @Result(column = "demand_departmant", property = "demandDepartmant"),
+            @Result(column = "demand_maker", property = "demandMaker"),
+            @Result(column = "demand_date", property = "demandDate"),
+            @Result(column = "demand_auditor", property = "demandAuditor"),
+            @Result(column = "demand_system", property = "demandSystem"),
+            @Result(column = "demand_module", property = "demandModule"),
+            @Result(column = "demand_progress", property = "demandProgress"),
+            @Result(column = "version_num", property = "versionNum"),
+            @Result(column = "demand_respo_id", property = "demandRespoId"),
+            @Result(column = "demand_name", property = "demandName"),
+            @Result(column = "demand_des", property = "demandDes"),
+            @Result(column = "demand_stat", property = "demandStat"),
+            @Result(column = "lead_date", property = "leadDate"),
+            @Result(column = "planned_finish_date", property = "plannedFinishDate"),
+            @Result(column = "actual_finish_date", property = "actualFinishDate"),
+            @Result(column = "planned_online_date", property = "plannedOnlineDate"),
+            @Result(column = "actual_online_date", property = "actualOnlineDate"),
+            @Result(column = "priority", property = "priority"),
+            @Result(column = "workload", property = "workload"),
+            @Result(column = "workload_confirm", property = "workloadConfirm"),
+            @Result(column = "settlement_situation", property = "settlementSituation"),
+            @Result(column = "create_time", property = "createTime"),
+            @Result(column = "create_user_id", property = "createUserId"),
+            @Result(column = "update_time", property = "updateTime"),
+            @Result(column = "update_user_id", property = "updateUserId"),
+            @Result(column = "remark1", property = "remark1"),
+            @Result(column = "remark2", property = "remark2"),
+            @Result(column = "remark3", property = "remark3")
+    }
+    )*/
     @ResultMap("com.adtec.daily.demand.dao.DemandTrackMapper.BaseResultMap")
     DemandTrackVo selectByPrimaryKey(DemandTrackVo key);
 

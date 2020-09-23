@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>文件管理</title>
+    <script type="text/javascript" src="/static/js/common/pub.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-card">
+            <div class="layui-card-header">第三方系统查询</div>
+            <div class="layui-card-body">
+                <div class="layui-form" lay-filter="searchForm">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">系统编码</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="sysCode" name="sysCode" placeholder="请输入" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">行业编码</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="busiNo" name="busiNo" placeholder="请输入" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline" style="margin-left: 45px">
+                            <button class="layui-btn" lay-submit lay-filter="sysFileSearch">
+                                <i class="layui-icon layui-icon-search"></i>&nbsp;搜索
+                            </button>
+                            <button type="button" class="layui-btn">
+                                <i class="layui-icon layui-icon-refresh" id="restart"></i>&nbsp;重置
+                            </button>
+                            <button type="button" class="layui-btn layui-btn-warm" id="sysFileAdd">
+                                <i class="layui-icon">&#xe654;</i>&nbsp;新增
+                            </button>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">系统编号</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="sysNo" name="sysNo" placeholder="请输入" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table id="sysFileTable" class="layui-table" lay-filter="sysFileEvent"></table>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<div class="layui-row" id="popUpdateTest" style="display:none;">
+    <div class="layui-form-item">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="text" style="display:none" name="neweqptIdCode" id="SYS_CODE" required
+                       lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label">FTP IP</label>
+            <div class="layui-input-block">
+                <input type="text" style="width:110px;" ; name="neweqptIdCode" id="ftp" required lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-input-inline">
+            <label class="layui-form-label">FTP端口</label>
+            <div class="layui-input-block">
+                <input type="text" style="width:110px;" name="neweqptIdCode" id="port" required lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <label class="layui-form-label">FTP用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" style="width:110px;" name="neweqptIdCode" id="user" required
+                           lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-input-inline">
+                <label class="layui-form-label">FTP密码</label>
+                <div class="layui-input-block">
+                    <input type="text" style="width:110px;" name="neweqptIdCode" id="pass" required
+                           lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">系统公钥</label>
+        <div class="layui-input-block">
+            <textarea style="width:600px"
+                      text="${ (exportTask==null || exportTask.columes == '-1' ) ? '':exportTask.columes}"
+                      placeholder="请输入内容" name="neweqptIdCode" id="pubkey" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">系统私钥</label>
+        <div class="layui-input-block">
+            <textarea style="width:600px"
+                      text="${ (exportTask==null || exportTask.columes == '-1' ) ? '':exportTask.columes}"
+                      placeholder="请输入内容" name="neweqptIdCode" id="prikey" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item" style="margin-left:180px;margin-top: 60px;">
+        <div class="layui-input-block">
+            <button id="makeedit" class="layui-btn  layui-btn-submit " lay-filter="demo11">确认修改</button>
+        </div>
+    </div>
+</div>
+
+</div>
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+<script type="text/html" id="stat">
+    {{#  if(d.stat == '0'){ }}
+    <button class="layui-btn layui-btn-danger layui-btn-xs">关闭</button>
+    {{#  } else if(d.stat == '1'){ }}
+    <button class="layui-btn layui-btn-normal layui-btn-xs">正常</button>
+    {{#  } else if(d.stat == '2'){ }}
+    <button class="layui-btn layui-btn-warm layui-btn-xs">维护</button>
+    {{#  } }}
+</script>
+
+<script>
+    layui.use(['jquery', 'table', 'form', 'flow'], function () {
+        var $ = layui.jquery;
+        var form = layui.form
+            , layer = layui.layer
+            , flow = layui.flow
+            , layedit = layui.layedit
+            , table = layui.table;
+
+        let tabResult = table.render({
+            elem: '#sysFileTable'
+            , url: '/systemThird/querySystemParaLists' //数据接口
+            , method: 'POST'
+            , page: true //开启分页
+            , toolbar: '#toolbarHead' //开启工具栏
+            , cols: [[ //表头
+                {field: 'sysCode', title: '系统编号', width: 100}
+                , {field: 'sysName', title: '系统名称', width: 100}
+                , {field: 'stat', title: '系统状态', width: 100, templet: '#stat'}
+                , {field: 'busiNo', title: '行业编码', align: 'center', width: 100}
+                , {field: 'sysNo', title: '系统编码', align: 'center', width: 100}
+                , {field: 'ftpServer', title: 'FTP服务器IP', align: 'center', width: 120}
+                , {field: 'ftpUser', title: 'FTP用户名', align: 'center', width: 120}
+                , {field: 'ftpPasswd', title: 'FTP密码', align: 'center', width: 100}
+                , {field: 'ftpPort', title: 'FTP端口', align: 'center', width: 100}
+                , {field: 'encrypAlg', title: '加密算法', align: 'center', width: 100}
+                , {field: 'sysPublicKey', title: '系统公钥', align: 'center', width: 100}
+                , {field: 'sysPrivateKey', title: '系统私钥', align: 'center', width: 100}
+                , {field: 'createTime', title: '创建时间', align: 'center', width: 140}
+                , {field: 'createUser', title: '创建人员', align: 'center', width: 100}
+                , {field: '', title: '操作', align: 'center', width: 170, toolbar: '#toolbar', fixed: 'right'}
+            ]]
+            , response: {
+                statusName: 'code'
+                , statusCode: '100'
+                , msgName: 'msg'
+                , countName: 'total'
+                , dataName: 'data'
+            }
+        });
+        var index_open = "";
+
+        table.on('tool(sysFileEvent)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {       //查看操作--->已注释
+                window.location.href = '/html/demand/demandInfo.jsp' + '?id=' + data.id + '&demandId=' + data.demandId;
+            } else if (obj.event === 'del') {   //删除操作--->未开放
+                layer.alert("功能暂未开放，敬请期待!");
+            } else if (obj.event === 'edit') {    //修改操作----正进行
+                $('#ftp').val(data.ftpServer);
+                $('#user').val(data.ftpUser);
+                $('#pass').val(data.ftpPasswd);
+                $('#port').val(data.ftpPort);
+                $('#pubkey').val(data.sysPublicKey);
+                $('#prikey').val(data.sysPrivateKey);
+                $('#SYS_CODE').val(data.sysCode);
+                index_open = layer.open({
+                    //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                    type: 1,
+                    title: "信息修改",
+                    area: ['800px', '600px'],
+                    content: $("#popUpdateTest")
+                })
+
+            }
+        });
+
+        $('#makeedit').click(function () {
+            //通过这里去到后台进行数据的修改
+            var editdata = {
+                "ftpServer": $('#ftp').val(),
+                "ftpUser": $('#user').val(),
+                "ftpPasswd": $('#pass').val(),
+                "ftpPort": $('#port').val(),
+                "sysPublicKey": $('#pubkey').val(),
+                "sysPrivateKey": $('#prikey').val(),
+                "sysCode": $('#SYS_CODE').val()
+
+            };
+            editdata = JSON.stringify(editdata);
+            $.ajax({
+                type: "POST",
+                url: "/EditThird/editThirdPara",
+                data: editdata,
+                dataType: "json",
+                contentType: "application/json",
+                success: function (result) {
+                    if (result.code == "100") {
+                        tabResult.reload();
+                        layer.msg("更新成功!");
+                        layer.close(index_open);
+                    } else {
+                        layer.alert("更改失败");
+                    }
+                },
+                error: function (result) {
+                    layer.alert("通讯失败，请稍后重试！");
+                }
+            });
+            return false;
+        });
+
+        // 加载受理人信息
+        flow.load({
+            elem: '#demandRespoId' //指定列表容器
+            , done: function (page, next) { //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.ajax({
+                    url: '/user/getProjectUserList',
+                    type: "POST",
+                    success: function (res) {
+                        //假设你的列表返回在data集合中
+                        layui.each(res.data, function (index, item) {
+                            lis.push('<option value=' + item.userId + '>' + item.userName + '</option>');
+                        });
+                        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                        next(lis.join(''), page < res.pages);
+                        form.render();
+                    }
+                });
+            }
+        });
+
+
+        //监听搜索
+        form.on('submit(sysFileSearch)', function (data) {
+            tabResult.reload({
+                where: {
+                    sysCode: data.field.sysCode
+                    , busiNo: data.field.busiNo
+                    , sysNo: data.field.sysNo
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+            return false;
+        });
+
+        $('#sysFileAdd').click(function () {
+            layer.alert("功能暂未开放，敬请期待!");
+        });
+    });
+
+
+</script>
+
+</body>
+</html>

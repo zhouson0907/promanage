@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>角色列表</title>
+    <script type="text/javascript" src="/static/js/common/pub.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-card">
+            <div class="layui-card-header">角色列表</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item">
+                    <button class="layui-btn" id="role_add_modal_btn" ,privilege-id="6">新增</button>
+                </div>
+
+                <div class="layui-form" id="roleUpdateModal" style="display:none;" tabindex="-1" role="dialog">
+                    <form class="form-horizontal">
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <input type="text" style="display:none" name="neweqptIdCode" required
+                                       lay-verify="required" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">角色类型</label>
+                            <div class="layui-input-block">
+                                <select id="roleTypeSelectUpdate" name="roleType">
+                                    <option value="00">项目角色</option>
+                                    <option value="01">部门角色</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">角色名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="roleName" id="roleName_update_input" class="layui-input">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">角色描述</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="description" id="description_update_input" class="layui-input">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type="button" id="role_update_btn" class="layui-btn">更新</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form" id="roleAddModal" style="display:none;" tabindex="-1" role="dialog">
+                    <form class="form-horizontal">
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <input type="text" style="display:none" name="neweqptIdCode" required
+                                       lay-verify="required" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">角色名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="roleName" id="roleName_add_input" class="layui-input">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">角色描述</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="description" id="description_add_input" class="layui-input">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">角色类型</label>
+                            <div class="layui-input-block">
+                                <select id="roleTypeSelectAdd" name="roleType">
+                                    <option value="00">项目角色</option>
+                                    <option value="01">部门角色</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type="button" id="role_save_btn" class="layui-btn">保存</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="layui-form" id="privilegeModal" style="display:none;" tabindex="-1" role="dialog">
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend>权限列表</legend>
+                    </fieldset>
+                    <div id="rolePrivilege" class="demo-tree"></div>
+                    <div class="layui-form-item" style="margin-top: 30px;">
+                        <div class="layui-input-block">
+                            <button type="button" id="privilege_save_btn" class="layui-btn">保存</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="layui-card-body">
+                <table id="roles_table" class="layui-table" lay-filter="rolesManaEvent"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/html" id="toolbar">
+    {{# if(privilegeList.indexOf(7) != -1){}}
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    {{# } }}
+    {{# if(privilegeList.indexOf(8) != -1){}}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{# } }}
+    {{# if(privilegeList.indexOf(9) != -1){}}
+    <a class="layui-btn  layui-btn-xs layui-btn-normal" lay-event="privilege">设置权限</a>
+    {{# } }}
+</script>
+
+<script type="text/javascript">
+    let tabResult = "";
+    //获取当前用户的权限列表
+    var privilegeList = [4, 6, 5, 7, 8, 9];
+    //根据权限列表判断是否显示
+    if (privilegeList.indexOf(6) == -1) {
+        $("#role_add_modal_btn").hide();
+    }
+
+    layui.use(['table', 'tree', 'util'], function () {
+        var table = layui.table,
+            layer = layui.layer,//弹层
+            laypage = layui.laypage,
+            tree = layui.tree,
+            util = layui.util;
+
+        //调用分页
+        laypage.render({
+            curr: 1 //设定初始在第 1 页
+            , limit: 10//每页显示条数
+            , groups: 5 //只显示 5 个连续页码
+            , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+            , jump: function (obj) {
+                var page = obj.curr;
+                var limit = obj.limit;
+                search(page, limit);
+            }
+        });
+
+        function search(page, limit) {
+            tabResult = table.render({
+                elem: '#roles_table'
+                , url: '/role/getRoles' //数据接口
+                , page: {
+                    layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                    , curr: page //设定初始在第 1 页
+                    , limit: limit
+                    , groups: 5 //只显示 5 个连续页码
+                }
+                , cols: [[ //表头
+                    {field: 'roleName', title: '角色名称', width: 169}
+                    , {field: 'description', title: '角色描述', width: 175}
+                    , {
+                        field: 'roleType', title: '角色类型', width: 150, templet: function (d) {
+                            return d.roleType == '01' ? "部门角色" : "项目角色"
+                        }
+                    }
+                    , {
+                        field: 'createTime', title: '创建日期', align: 'center', width: 200, templet: function (d) {
+                            return d.createTime == null ? "" : new Date(d.createTime).Format("yyyy-MM-dd")
+                        }
+                    }
+                    , {
+                        field: 'updateTime', title: '修改日期', align: 'center', width: 200, templet: function (d) {
+                            return d.updateTime == null ? "" : new Date(d.updateTime).Format("yyyy-MM-dd")
+                        }
+                    }
+                    , {field: 'dosomething', title: '操作', align: 'center', toolbar: '#toolbar'}
+                ]]
+                , response: {
+                    statusName: 'code'
+                    , statusCode: '100'
+                    , msgName: 'msg'
+                    , countName: 'total'
+                    , dataName: 'data'
+                }
+            });
+
+            table.on('tool(rolesManaEvent)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'del') {
+                    deleteRole(data.roleName, data.roleId);
+                } else if (obj.event === 'edit') {
+                    editRole(data.roleId);
+                } else if (obj.event === 'privilege') {
+                    editPrivilege(data.roleId);
+                }
+            });
+        }
+
+
+        //设置权限按钮绑定点击事件
+        function editPrivilege(roleId) {
+            //1、查出权限信息，显示权限信息
+            index_open_pri = layer.open({
+                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                type: 1,
+                title: "权限配置",
+                area: ['600px', '400px'],
+                content: $("#privilegeModal")
+            });
+
+            $.ajax({
+                url: "/rolePrivilege/getPrivileges",
+                type: "GET",
+                data: {roleId: roleId},
+                success: function (data) {
+                    let privileges = data.data;
+                    tree.render({
+                        elem: '#rolePrivilege'
+                        , data: privileges
+                        , showCheckbox: true  //是否显示复选框
+                        , id: 'roleTree'
+                        , isJump: false //是否允许点击节点时弹出新窗口跳转
+                        , click: function (obj) {
+                            // var data = obj.data;  //获取当前点击的节点数据
+                            // layer.msg('状态：' + obj.state + '<br>节点数据：' + JSON.stringify(data));
+                        }
+                    });
+                }
+            });
+            //2、把角色的id传递给模态框的保存按钮
+            $("#privilege_save_btn").attr("role-id", roleId);
+        }
+
+        //点击保存，保存权限设置
+        $("#privilege_save_btn").click(function () {
+            var checkedData = tree.getChecked('roleTree'); //获取选中节点的数据
+            // layer.alert(JSON.stringify(checkedData), {shade: 0});
+            // console.log(checkedData);
+            //2、发送ajax请求保存权限数据
+            $.ajax({
+                url: "/rolePrivilege/savePrivilege",
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({
+                    "roleId": $("#privilege_save_btn").attr("role-id"),
+                    "privilegeList" : checkedData
+                }),
+                contentType: 'application/json;charset=UTF-8',
+                success: function (result) {
+                    layer.msg(result.msg, {time: 2000});
+                    layer.close(index_open_pri);
+                }
+            });
+        });
+
+        var index_open_add = "";
+        //点击新增按钮弹出模态框。
+        $("#role_add_modal_btn").click(function () {
+            index_open_add = layer.open({
+                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                type: 1,
+                title: "角色新增",
+                area: ['600px', '400px'],
+                content: $("#roleAddModal")
+            })
+        });
+
+        //校验表单数据
+        function validate_add_form() {
+            //1、拿到要校验的数据，使用正则表达式
+            var roleName = $("#roleName_add_input").val();
+            var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,10})/;
+            if (!regName.test(roleName)) {
+
+                show_validate_msg("#roleName_add_input", "error", "角色名可以是2-10位中文或者6-16位英文和数字的组合");
+                return false;
+            } else {
+                show_validate_msg("#roleName_add_input", "success", "");
+            }
+            return true;
+        }
+
+        //显示校验结果的提示信息
+        function show_validate_msg(ele, status, msg) {
+            //清除当前元素的校验状态
+            $(ele).parent().removeClass("has-success has-error");
+            $(ele).next("span").text("");
+            if ("success" == status) {
+                $(ele).parent().addClass("has-success");
+                $(ele).next("span").text(msg);
+            } else if ("error" == status) {
+                $(ele).parent().addClass("has-error");
+                $(ele).next("span").text(msg);
+            }
+        }
+
+        //校验角色名是否可用
+        $("#roleName_add_input").change(function () {
+            //发送ajax请求校验角色名是否可用
+            var roleName = this.value;
+            $.ajax({
+                url: "/role/roleCheck",
+                data: "roleName=" + roleName,
+                type: "POST",
+                success: function (result) {
+                    if (result.code == "100") {
+                        show_validate_msg("#roleName_add_input", "success", "角色名可用");
+                        $("#role_save_btn").attr("ajax-va", "success");
+                    } else {
+                        show_validate_msg("#roleName_add_input", "error", result.extend.va_msg);
+                        $("#role_save_btn").attr("ajax-va", "error");
+                    }
+                }
+            });
+        });
+
+        //校验修改角色名是否可用
+        $("#roleName_update_input").change(function () {
+            //发送ajax请求校验角色名是否可用
+            var roleName = this.value;
+            var hideName = $("#hideName").html();
+            $.ajax({
+                url: "/role/roleCheck",
+                data: "roleName=" + roleName,
+                type: "POST",
+                async: false,
+                success: function (result) {
+                    if (result.code == "100") {
+                        show_validate_msg("#roleName_update_input", "success", "角色名可用");
+                        $("#role_update_btn").attr("ajax-va", "success");
+                    } else {
+                        if (hideName == roleName) {
+                            show_validate_msg("#roleName_update_input", "success", "角色名可用");
+                            $("#role_update_btn").attr("ajax-va", "success");
+                        } else {
+                            show_validate_msg("#roleName_update_input", "error", result.extend.va_msg);
+                            $("#role_update_btn").attr("ajax-va", "error");
+                        }
+                    }
+                }
+            });
+        });
+
+        //点击保存，保存角色。
+        $("#role_save_btn").click(function () {
+            // 1、先对要提交给服务器的数据进行校验
+            if (!validate_add_form()) {
+                return false;
+            }
+
+            //1、判断之前的ajax用户名校验是否成功。如果成功。
+            if ($(this).attr("ajax-va") == "error") {
+                show_validate_msg("#roleName_add_input", "error", "角色名不可用");
+                $("#role_save_btn").attr("ajax-va", "error");
+                return false;
+            }
+            //2、发送ajax请求保存员工
+            $.ajax({
+                url: "/role/save",
+                type: "POST",
+                data: $("#roleAddModal form").serialize(),
+                success: function (result) {
+                    if (result.code == "100") {
+                        //用户保存成功；
+                        //1、隐藏div框
+                        layer.msg("新增成功!", {time: 2000});
+                        layer.close(index_open_add);
+                        tabResult.reload();     //重载当前页面数据
+                    } else {
+                        //显示失败信息
+                        //console.log(result);
+                        //有哪个字段的错误信息就显示哪个字段的；
+                        if (undefined != result.extend.errorFields.empName) {
+                            //显示角色名字的错误信息
+                            show_validate_msg("#roleName_add_input", "error", result.extend.errorFields.roleName);
+                        }
+                    }
+                }
+            });
+        });
+
+        var index_open_update = "";
+
+        function editRole(roleId) {
+            //清空表单样式
+            $('#roleUpdateModal form').find("*").removeClass("has-error has-success");
+            $('#roleUpdateModal form').find(".help-block").text("");
+            //1、查出用户信息，显示用户信息
+            getRole(roleId);
+
+            index_open_update = layer.open({
+                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                type: 1,
+                title: "角色新增",
+                area: ['600px', '400px'],
+                content: $("#roleUpdateModal")
+            })
+
+            //2、把角色的id传递给模态框的更新按钮
+            $("#role_update_btn").attr("edit-id", roleId);
+        };
+
+        function getRole(id) {
+            $.ajax({
+                url: "/role/getRoleById/" + id,
+                type: "GET",
+                success: function (result) {
+                    //console.log(result);
+                    var roleData = result.extend.role;
+                    $("#roleName_update_input").val(roleData.roleName);
+                    $("#description_update_input").val([roleData.description]);
+                    $("#roleTypeSelectUpdate").val(roleData.roleType);
+                    $("#hideName").remove();
+                    $("#roleTypeSelectUpdate").after($("<span></span>").attr("id", "hideName").html(roleData.roleName));
+                    $("#hideName").hide();
+                }
+            });
+        }
+
+        //点击更新，更新角色信息
+        $("#role_update_btn").click(function () {
+            //1、拿到要校验的数据，使用正则表达式
+            var roleName = $("#roleName_update_input").val();
+            var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,10})/;
+            if (!regName.test(roleName)) {
+                show_validate_msg("#roleName_add_input", "error", "角色名可以是2-10位中文或者6-16位英文和数字的组合");
+                return false;
+            } else {
+                show_validate_msg("#roleName_add_input", "success", "");
+            }
+            //1、判断之前的ajax用户名校验是否成功。如果成功。
+            if ($(this).attr("ajax-va") == "error") {
+                return false;
+            }F
+            //2、发送ajax请求保存更新的角色数据
+            $.ajax({
+                url: "/role/update/" + $(this).attr("edit-id"),
+                type: "PUT",
+                data: $("#roleUpdateModal form").serialize(),
+                success: function (result) {
+                    if (result.code == "100") {
+                        layer.msg("更新成功!", {time: 2000});
+                        layer.close(index_open_update);
+                        tabResult.reload();
+                    } else {
+                        if (undefined != result.extend.errorFields.empName) {
+                            //显示角色名字的错误信息
+                            show_validate_msg("#roleName_add_input", "error", result.extend.errorFields.roleName);
+                        }
+                    }
+                },
+                error: function (result) {
+                    layer.msg("通讯错误!", {time: 2000});
+                    return;
+                }
+            });
+        });
+
+        //单个删除
+        function deleteRole(roleName, roleId) {
+            layer.confirm("确认删除【" + roleName + "】吗？", {icon: 3, title: '确认信息'}, function (index) {
+                //确认，发送ajax请求删除即可
+                $.ajax({
+                    url: "/role/delete/" + roleId,
+                    type: "DELETE",
+                    success: function (result) {
+                        layer.msg(result.msg, {time: 2000});
+                        //回到本页
+                        tabResult.reload();
+                    }
+                });
+            })
+        };
+        var index_open_pri = "";
+
+    });
+</script>
+</body>
+</html>

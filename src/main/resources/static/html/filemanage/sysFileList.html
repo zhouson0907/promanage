@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>文件列表</title>
+    <script type="text/javascript" src="/static/js/common/pub.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-card">
+            <div class="layui-card-header">文件列表查询</div>
+            <div class="layui-card-body">
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">系统编码</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="sysCode" name="sysCode" placeholder="请输入" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">文件状态</label>
+                            <div class="layui-input-block">
+                                <select name="stat" id="stat">
+                                    <option value=""></option>
+                                    <option value="0">初始</option>
+                                    <option value="1">未下载</option>
+                                    <option value="2">已下载</option>
+                                    <option value="3">处理成功</option>
+                                    <option value="4">处理失败</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline" style="margin-left: 45px">
+                            <button class="layui-btn" lay-submit lay-filter="sysFileSearch">
+                                <i class="layui-icon layui-icon-search"></i>&nbsp;搜索
+                            </button>
+                            <button type="reset" class="layui-btn">
+                                <i class="layui-icon layui-icon-refresh"></i>&nbsp;重置
+                            </button>
+                            <button type="button" class="layui-btn layui-btn-warm" id="sysFileAdd">
+                                <i class="layui-icon">&#xe654;</i>&nbsp;新增
+                            </button>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">文件名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="fileNm" name="fileNm" placeholder="请输入" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">平台日期</label>
+                            <div class="layui-input-block">
+                                <input type="text"
+                                       name="platDate"
+                                       id="platDate"
+                                       readonly
+                                       placeholder="请选择日期"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <table id="sysFileTable" class="layui-table" lay-filter="sysFileEvent"></table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/html" id="status">
+    {{#  if(d.stat == '0'){ }}
+    <button class="layui-btn layui-btn-danger layui-btn-xs">初始</button>
+    {{#  } else if(d.stat == '1'){ }}
+    <button class="layui-btn layui-btn-warm layui-btn-xs">已下载</button>
+    {{#  } else if(d.stat == '2'){ }}
+    <button class="layui-btn layui-btn-normal layui-btn-xs">已压缩</button>
+    {{#  } else if(d.stat == '3'){ }}
+    <button class="layui-btn layui-btn-primary layui-btn-xs">已加密</button>
+    {{#  } }}
+</script>
+
+<script type="text/html" id="fType">
+    {{#  if(d.fileType == '1'){ }}
+    <button class="layui-btn layui-btn-danger layui-btn-xs">原始文件</button>
+    {{#  } else if(d.fileType == '2'){ }}
+    <button class="layui-btn layui-btn-warm layui-btn-xs">目标文件</button>
+    {{#  } }}
+</script>
+
+
+<script>
+    layui.use(['jquery', 'table', 'form', 'flow', 'laydate'], function () {
+        let $ = layui.jquery;
+        let form = layui.form
+            , layer = layui.layer
+            , flow = layui.flow
+            , layedit = layui.layedit
+            , table = layui.table
+            , laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#platDate'
+            , value: new Date()
+        });
+
+        let tabResult = table.render({
+            elem: '#sysFileTable'
+            , url: '/systemFile/querySystemFileLists' //数据接口
+            , method: 'POST'
+            , where: {
+                platDate: new Date().Format("yyyy-MM-dd")
+            }
+            , page: true //开启分页
+            , toolbar: '#toolbarHead' //开启工具栏
+            , cols: [[ //表头
+                {field: 'sysCode', title: '系统编号', align: 'center', width: 100}
+                , {field: 'platDate', title: '平台日期', align: 'center', width: 100}
+                , {field: 'fileNm', title: '文件名称', width: 240}
+                , {field: 'fileType', title: '文件类型', align: 'center', width: 100, templet: '#fType'}
+                , {field: 'stat', title: '文件状态', align: 'center', width: 100, templet: '#status'}
+                , {field: 'filePath', title: '文件路径', width: 500}
+                , {field: 'crtTime', title: '创建时间', align: 'center', width: 150}
+                , {field: 'uptTime', title: '更新时间', align: 'center', width: 150}
+                , {field: '', title: '操作', align: 'center', width: 170, toolbar: '#toolbar', fixed: 'right'}
+            ]]
+            , response: {
+                statusName: 'code'
+                , statusCode: '100'
+                , msgName: 'msg'
+                , countName: 'total'
+                , dataName: 'data'
+            }
+        });
+
+        //监听头工具栏事件
+        table.on('toolbar(sysFileEvent)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id)
+                , data = checkStatus.data; //获取选中的数据
+            switch (obj.event) {
+                case 'add':
+                    layer.msg('添加');
+                    break;
+                case 'update':
+                    if (data.length === 0) {
+                        layer.msg('请选择一行');
+                    } else if (data.length > 1) {
+                        layer.msg('只能同时编辑一个');
+                    } else {
+                        layer.alert('编辑 [id]：' + checkStatus.data[0].id);
+                    }
+                    break;
+                case 'delete':
+                    if (data.length === 0) {
+                        layer.msg('请选择一行');
+                    } else {
+                        layer.msg('删除');
+                    }
+                    break;
+            }
+            ;
+        });
+
+        table.on('tool(sysFileEvent)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                window.location.href = '/html/demand/demandInfo.jsp' + '?id=' + data.id + '&demandId=' + data.demandId;
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除么', function (index) {
+                    $.ajax({
+                        url: "/demandTrack/delDemandTrack",
+                        data: JSON.stringify(data),
+                        type: "POST",
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (result) {
+                            layer.msg(result.msg);
+                        }
+                    });
+                    obj.del();
+                });
+            } else if (obj.event === 'edit') {
+                window.location.href = '/html/demand/demandAdd.jsp' + '?id=' + data.id + '&demandId=' + data.demandId;
+            }
+        });
+
+        //监听搜索
+        form.on('submit(sysFileSearch)', function (data) {
+            tabResult.reload({
+                where: {
+                    sysCode: data.field.sysCode
+                    , stat: data.field.stat
+                    , fileNm: data.field.fileNm
+                    , platDate: data.field.platDate
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+            return false;
+        });
+
+        $('#sysFileAdd').click(function () {
+            window.location.href = '/html/demand/demandAdd.jsp';
+            return false;
+        });
+
+
+        function getTableData(data) {
+        }
+    });
+
+
+</script>
+
+</body>
+</html>

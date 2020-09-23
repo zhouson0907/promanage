@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>权限列表</title>
+    <script type="text/javascript" src="/static/js/common/pub.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/js/common/inputSuggest.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-card">
+            <div class="layui-card-header">菜单列表</div>
+            <div class="layui-card-body">
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <button type="button" class="layui-btn layui-btn-warm" id="privilege_add_modal_btn">
+                            <i class="layui-icon">&#xe654;</i>&nbsp;新增
+                        </button>
+                    </div>
+                </div>
+
+
+
+                <div class="layui-form" id="privilegeUpdateModal" tabindex="-1" role="dialog" style="display:none;">
+                    <form class="form-horizontal" style="margin-top: 30px;">
+                            <div class="layui-form-item" >
+                                <label class="layui-form-label" style="display: none">权限ID</label>
+                                <div class="layui-input-inline" style="display: none">
+                                    <input type="number" name="privilegeId" id="privilegeId_update_input" class="layui-input">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">编号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="code" id="code_update_input" class="layui-input">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">名称</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="name" class="layui-input" id="name_update_input">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <!--<div class="layui-form-item">
+                                <label class="layui-form-label">是否可用</label>
+                                <div class="layui-input-inline">
+                                    <input type="number" name="enabled" id="enabled_update_input" class="layui-input">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">是否可用</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="enabled" title="可用" id="enabled1_update_input" value="1"
+                                           checked="checked">
+                                    <input type="radio" name="enabled" title="不可用" id="enabled2_update_input" value="0">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">访问地址</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="url" id="url_update_input" class="layui-input">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">上级菜单</label>
+                                <div class="layui-input-block">
+                                    <select id="nameSelectUpdate" class="layui-input" name="parentId">
+                                        <option value="">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">是否是菜单</label>
+                                <div class="layui-input-block">
+                                <input type="radio" name="menuFlag" title="是" id="menuFlag1_update_input" value="1"
+                                       checked="checked">
+                                <input type="radio" name="menuFlag" title="不是" id="menuFlag2_update_input" value="0">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">菜单图标</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="menuImage" id="menuImage_update_input" class="layui-input">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                            <!--<div class="layui-form-item">
+                                <label class="layui-form-label">菜单排序</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="sortNo" id="sortNo_update_input" class="layui-input">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>-->
+                        </form>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button type="button" id="privilege_update_btn" class="btn btn-primary">更新</button>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="layui-form" id="privilegeAddModal" lay-filter="privilegeAddModal" tabindex="-1" role="dialog" style="display:none;">
+                    <form class="form-horizontal" style="margin-top: 30px;">
+                        <!--<div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <input type="text" style="display:none" name="neweqptIdCode" id="SYS_CODE1" required
+                                       lay-verify="required" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>-->
+                        <!--<div class="layui-form-item">
+                            <label class="layui-form-label">权限ID</label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="privilegeId" id="privilegeId_add_input" class="layui-input">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>-->
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">编号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="code" id="code_add_input" class="layui-input">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" class="layui-input" id="name_add_input">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">是否可用</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="enabled" title="可用" id="enabled1_add_input" value="1"
+                                       checked="checked">
+                                <input type="radio" name="enabled" title="不可用" id="enabled2_add_input" value="0">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">访问地址</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="url" id="url_add_input" class="layui-input">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">上级菜单</label>
+                            <div class="layui-input-block">
+                                <select id="nameSelectAdd" class="layui-input" name="parentId">
+                                    <option value="">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">是否是菜单</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="menuFlag" title="是" id="menuFlag1_add_input" value="1"
+                                       checked="checked">
+                                <input type="radio" name="menuFlag" title="不是" id="menuFlag2_add_input" value="0">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">菜单图标</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="menuImage" id="menuImage_add_input" class="layui-input">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">菜单排序</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="sortNo" id="sortNo_add_input" class="layui-input" placeholder="请输入数字，数字越大权重越大">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type="button" id="privilege_save_btn" class="btn btn-primary">保存</button>
+                        </div>
+                    </div>
+                </div>
+                <table id="userMana" class="layui-table" lay-filter="userManaEvent"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-xs " lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs " lay-event="del">删除</a>
+</script>
+
+<script type="text/javascript">
+    layui.use(['form', 'layedit', 'laydate', 'laypage', 'table'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , laypage = layui.laypage
+            , layedit = layui.layedit
+            , table = layui.table;
+
+        laypage.render({
+            curr: 1 //设定初始在第 1 页
+            , limit: 10//每页显示条数
+            , groups: 5 //只显示 5 个连续页码
+            , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+            , jump: function (obj) {
+                let page = obj.curr;
+                let limit = obj.limit;
+                search(page, limit);
+            }
+        })
+
+        function search(page, limit) {
+            table.render({
+                elem: '#userMana'
+                , url: '/privilege/findPrivilege' //数据接口
+                , page: {
+                    layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                    , curr: page //设定初始在第 1 页
+                    , limit: limit
+                    , groups: 5 //只显示 5 个连续页码
+                }
+                , cols: [[ //表头
+                    {field: 'privilegeId', hide: true}
+                    ,{field: 'name', title: '菜单名称', width: 150}
+                    , {
+                        field: 'enabled', title: '是否可用', width: 135, align: 'center',templet: function (d) {
+                            return d.enabled == 0 ? "不可用" : "可用"
+                        }
+                    }
+                    , {field: 'url', title: '访问地址', width: 280}
+                    , {field: 'parentId', title: '上级目录', align: 'center', width: 110}
+                    , {
+                        field: 'menuFlag', title: '是否是菜单', width: 135, align: 'center',templet: function (d) {
+                            return d.menuFlag == 0 ? "不是" : "是"
+                        }
+                    }
+                    ,{field: 'menuImage', title: '菜单图标', align: 'center', width: 190}
+                    ,{field: 'sortNo', title: '菜单排序',  align: 'center', width: 190}
+                    ,{field: 'createTime', title: '创建时间', align: 'center', width: 190}
+                    ,{field: 'createUserId', hide: true}
+                    ,{field: 'updateTime', hide: true}
+                    ,{field: 'updateUserId', hide: true}
+                    ,{field: 'remark1', hide: true}
+                    ,{field: 'remark2', hide: true}
+                    ,{field: 'remark3', hide: true}
+                    ,{field: 'dosomething', title: '操作', id: 'hide', align: 'center', toolbar: '#toolbar'}
+                ]]
+                , response: {
+                    statusName: 'code'
+                    , statusCode: '100'
+                    , msgName: 'msg'
+                    , countName: 'total'
+                    , dataName: 'data'
+                }
+            });
+        }
+        table.on('tool(userManaEvent)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                delPrivilege(data.privilegeId,data.name);
+            } else if (obj.event === 'edit') {
+                openEditModal(data.privilegeId);
+
+            }
+        });
+        //单个删除
+        function delPrivilege(privilegeId,name) {
+            layer.confirm("确认删除【" + name + "】菜单吗？", {icon: 3, title: '确认信息'}, function (index) {
+                //确认，发送ajax请求删除即可
+                $.ajax({
+                    url: "/privilege/"+privilegeId,
+                    type: "DELETE",
+                    success: function (result) {
+                        layer.msg(result.msg, {time: 2000});
+                        //回到本页
+                        to_page();
+                    }
+                });
+            })
+        };
+        let index_open_update;
+
+        function openEditModal(id) {
+            form.val("privilegeUpdateModal", {});
+            //查询权限信息，显示权限信息
+            getPrivilege(id);
+            //在这里设置模态框并打开.
+            index_open_update = layer.open({
+                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                type: 1,
+                title: "菜单修改",
+                area: ['600px', '700px'],
+                content: $("#privilegeUpdateModal")
+            });
+            //加载菜单名称下拉框
+            form.render();
+            return false;
+        };
+
+        let index_open_add;
+        //点击新增按钮弹出模态框。
+        $("#privilege_add_modal_btn").click(function () {
+
+            getName("#privilegeAddModal #nameSelectAdd");
+            index_open_add = layer.open({
+                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                type: 1,
+                title: "菜单新增",
+                area: ['600px', '700px'],
+                content: $("#privilegeAddModal")
+            })
+            //清除表单数据（表单完整重置（表单的数据，表单的样式））
+            form.render();
+            return false;
+        });
+
+        function to_page() {
+            //调用分页
+            laypage.render({
+                curr: 1 //设定初始在第 1 页
+                , limit: 10//每页显示条数
+                , groups: 5 //只显示 5 个连续页码
+                , layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+                , jump: function (obj) {
+                    var page = obj.curr;
+                    var limit = obj.limit;
+                    search(page, limit);
+                }
+            })
+        }
+
+        //点击保存，保存员工。
+        $("#privilege_save_btn").click(function () {
+            //发送ajax请求保存员工
+            $.ajax({
+                url: "/privilege/updatePrivilege",
+                type: "POST",
+                data: $("#privilegeAddModal form").serialize(),
+                success: function (result) {
+                    if (result.code == "100") {
+                        layer.msg("新增成功!", {time: 2000});
+                        layer.close(index_open_add);
+                        to_page(totalRecord);
+                    } else {
+                    }
+                }
+            });
+        });
+
+        //得到选取员工的信息
+        function getPrivilege(id) {
+            $.ajax({
+                url: "/privilege/"+id,
+                data: {id: id},
+                type: "GET",
+                success: function (result) {
+                    var privilegeData = result.extend.privilegeByPrimaryKey;
+                    $("#privilegeUpdateModal input[name=privilegeId]").val(privilegeData.privilegeId)
+                    $("#privilegeUpdateModal input[name=code]").val(privilegeData.code);
+                    $("#privilegeUpdateModal input[name=name]").val(privilegeData.name);
+                    $("#privilegeUpdateModal input[name=url]").val(privilegeData.url);
+                    $("#privilegeUpdateModal input[name=parentId]").val(privilegeData.parentId);
+                    $("#privilegeUpdateModal input[name=menuImage]").val(privilegeData.menuImage);
+                    getName("#privilegeUpdateModal #nameSelectUpdate");
+                }
+            });
+        }
+
+        $("#privilege_update_btn").click(function () {
+            //发送ajax请求保存更新的权限数据
+            $.ajax({
+                url: "/privilege/updatePrivilege",
+                type: "PUT",
+                data: $("#privilegeUpdateModal form").serialize(),
+                success: function (result) {
+                    if (result.code == "100") {
+                        layer.msg("更新成功!", {time: 2000});
+                        layer.close(index_open_update);
+                        to_page(currentPage);
+                    } else {
+                        layer.msg("更新失败!", {time: 2000});
+                    }
+                }
+            });
+        });
+        //查出所有的菜单信息并显示在下拉列表中
+        function getName(ele) {
+            // $(ele).empty();
+            $.ajax({
+                url: "/privilege/findIdAndName",
+                type: "GET",
+                success: function (result) {
+                    //显示角色信息在下拉列表中
+                    $.each(result.extend.idAndNameList, function (index,element) {
+                        var optionEle = $("<option></option>").append(element.name).attr("value",element.privilegeId);
+                            optionEle.appendTo(ele);
+                    });
+
+                }
+            });
+            form.render('select');
+        }
+    });
+</script>
+</body>
+</html>

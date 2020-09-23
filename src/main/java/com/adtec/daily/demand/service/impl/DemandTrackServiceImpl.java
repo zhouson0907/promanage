@@ -7,7 +7,7 @@ import com.adtec.base.user.entity.UserProjectExample;
 import com.adtec.daily.demand.dao.DemandTrackMapper;
 import com.adtec.daily.demand.entity.DemandTrackExample;
 import com.adtec.daily.demand.service.DemandTrackService;
-import com.adtec.daily.demand.vo.DemandTrackVo;
+import com.adtec.daily.demand.entity.DemandTrackVo;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.adtec.daily.demand.dao;
 import com.adtec.daily.demand.entity.DemandTrack;
 import com.adtec.daily.demand.entity.DemandTrackExample;
-import com.adtec.daily.demand.vo.DemandTrackVo;
+import com.adtec.daily.demand.entity.DemandTrackVo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

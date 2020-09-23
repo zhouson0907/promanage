@@ -6,7 +6,9 @@ import com.adtec.base.user.service.PrivilegeService;
 import com.adtec.base.user.service.RolePrivilegeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -39,5 +41,10 @@ public class PrivilegeController {
         return Msg.success().add("resultList", pros);
     }
 
-
+    @RequestMapping(value = "/privilege/getPrivileges/{userId}",method = RequestMethod.GET)
+    @ResponseBody
+    public Msg queryPrivilegesByUserId(@PathVariable("userId") String userId){
+        List<Privilege> list = privilegeService.getPrivilegesByUserId(userId);
+        return Msg.success().add("privilegeList",list);
+    }
 }

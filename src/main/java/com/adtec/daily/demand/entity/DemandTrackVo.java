@@ -1,4 +1,4 @@
-package com.adtec.daily.demand.vo;
+package com.adtec.daily.demand.entity;
 
 import com.adtec.base.common.EntityPub;
 import com.fasterxml.jackson.annotation.JsonInclude;

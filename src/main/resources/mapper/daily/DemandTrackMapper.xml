@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.adtec.daily.demand.dao.DemandTrackMapper">
-    <resultMap id="BaseResultMap" type="com.adtec.daily.demand.entity.DemandTrack">
+    <resultMap id="BaseResultMap" type="com.adtec.daily.demand.entity.DemandTrackVo">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="project_id" jdbcType="VARCHAR" property="projectId"/>
         <result column="demand_id" jdbcType="VARCHAR" property="demandId"/>

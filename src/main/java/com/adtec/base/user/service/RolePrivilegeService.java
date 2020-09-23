@@ -1,5 +1,6 @@
 package com.adtec.base.user.service;
 
+import com.adtec.base.user.entity.Privilege;
 import com.adtec.base.user.entity.PrivilegeVo;
 import com.adtec.base.user.entity.RolePrivilege;
 
@@ -41,4 +42,6 @@ public interface RolePrivilegeService {
     * 按照用户id查询用户权限列表
     * */
     List<PrivilegeVo> selectMenusByUserId(String userId);
+
+
 }

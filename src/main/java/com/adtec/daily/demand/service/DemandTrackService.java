@@ -1,7 +1,7 @@
 package com.adtec.daily.demand.service;
 
 
-import com.adtec.daily.demand.vo.DemandTrackVo;
+import com.adtec.daily.demand.entity.DemandTrackVo;
 
 import java.util.List;
 

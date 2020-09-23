@@ -28,4 +28,17 @@ public class PrivilegeServiceImpl implements PrivilegeService {
 	public List<Privilege> getAll() {
 		return privilegeMapper.selectByExample(null);
 	}
+
+	/***
+	 * @Description:
+	 * @Param: [userId]
+	 * @return: java.util.List<com.adtec.base.user.entity.Privilege>
+	 * @Author: 周松
+	 * @Date: 2020/9/22
+	 */
+	@Override
+	public List<Privilege> getPrivilegesByUserId(String userId) {
+		List<Privilege> list = privilegeMapper.selectPrivilegesByUserId(userId);
+		return list;
+	}
 }

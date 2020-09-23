@@ -1,5 +1,8 @@
 package com.adtec.base.user.controller;
 
+import com.adtec.base.branch.entity.Company;
+import com.adtec.base.branch.entity.Department;
+import com.adtec.base.branch.service.CompanyService;
 import com.adtec.base.common.Message;
 import com.adtec.base.user.entity.PrivilegeVo;
 import com.adtec.base.user.entity.User;
@@ -9,6 +12,7 @@ import com.adtec.base.user.service.UserProjectService;
 import com.adtec.base.user.service.UserRoleService;
 import com.adtec.base.user.service.UserService;
 import com.adtec.base.util.Constants;
+import com.adtec.daily.project.entity.Project;
 import com.github.pagehelper.PageHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +24,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;

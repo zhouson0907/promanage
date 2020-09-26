@@ -11,6 +11,10 @@ public class ProjectTemplateExample {
 
     protected List<Criteria> oredCriteria;
 
+    public void setOredCriteria(List<Criteria> oredCriteria) {
+        this.oredCriteria = oredCriteria;
+    }
+
     public ProjectTemplateExample() {
         oredCriteria = new ArrayList<Criteria>();
     }

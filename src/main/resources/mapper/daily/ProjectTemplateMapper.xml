@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.adtec.daily.project.dao.ProjectTemplateMapper">
-  <resultMap id="BaseResultMap" type="com.adtec.daily.project.entity.ProjectTemplateExample">
+  <resultMap id="BaseResultMap" type="com.adtec.daily.project.entity.ProjectTemplate">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="template_file_name" jdbcType="VARCHAR" property="templateFileName" />
@@ -175,6 +175,15 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <select id="queryByExample" resultType="com.adtec.daily.project.entity.ProjectTemplate">
+    select * from `t_project_template` where project_id in
+            <foreach collection="projectIds" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+            </foreach>
+            and template_type = #{templateType}
+  </select>
+
+
   <update id="updateByExampleSelective" parameterType="map">
     update t_project_template
     <set>

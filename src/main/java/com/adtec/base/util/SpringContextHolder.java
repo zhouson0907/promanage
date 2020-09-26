@@ -34,6 +34,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
         applicationContext = null;
     }
 
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
         setApplicationContextValue(applicationContext);
     }
@@ -47,6 +48,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
         applicationContext = appCtx;
     }
 
+    @Override
     public void destroy() throws Exception {
         clearHolder();
     }

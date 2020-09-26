@@ -28,9 +28,7 @@
 </div>
 
 <script type="text/html" id="toolbar">
-    {{# if(testPrivileges.indexOf(29) != -1){}}
-    <a class="layui-btn layui-btn-danger layui-btn-xs " lay-event="del">删除</a>
-    {{# } }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs " lay-event="del" id="delProjectDetail">删除</a>
 </script>
 <script type="text/javascript">
     var projectId = (window.location.search).split("=")[1];
@@ -80,6 +78,11 @@
                         toolbar: '#toolbar'
                     }
                 ]]
+                ,done:function (){
+                    if (testPrivileges.indexOf(29)) {
+                        $("#delProjectDetail").hide();
+                    }
+                }
                 , response: {
                     statusName: 'code'
                     , statusCode: '100'

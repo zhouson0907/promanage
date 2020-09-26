@@ -168,8 +168,7 @@
         <div class="modal fade" id="overWorkAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form class="form-horizontal" id="overWorkExport" method="get" enctype="multipart/form-data"
-                          action="/overWork/overWorkExport">
+                    <form class="form-horizontal" id="overWorkExport" method="get" enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
@@ -207,8 +206,7 @@
         <div class="modal fade" id="projectWeekModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form class="form-horizontal" id="projectWeekExport" method="get" enctype="multipart/form-data"
-                          action="/daily/projectWeeklyExport">
+                    <form class="form-horizontal" id="projectWeekExport"  enctype="multipart/form-data">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
@@ -265,16 +263,9 @@
 </div>
 
 <script type="text/html" id="toolbar">
-
-<!--    {{# if(testPrivileges.indexOf(13) != -1){}}-->
     <a class="layui-btn layui-btn-xs " lay-event="edit" id="editProject">编辑</a>
-<!--    {{# } }}-->
-<!--    {{# if(testPrivileges.indexOf(14) != -1){}}-->
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del" id="delProject">删除</a>
-<!--    {{# }-->
-<!--    {{# if(testPrivileges.indexOf(27) != -1){}}-->
-    <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="det" id="detProject">项目详情</a>
-<!--    {{# } }}-->
+<!--    <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="det" id="detProject">项目详情</a>-->
 </script>
 <script type="text/javascript">
     layer = layui.layer //弹层
@@ -401,7 +392,19 @@
                         toolbar: '#toolbar',
                         fixed: 'right'
                     }
-                ]]
+                ]],
+                //表格渲染完对权限进行审查
+                done:function (){
+                    if (testPrivileges.indexOf(79) == -1) {
+                        $("#editProject").hide();
+                    }
+                    if (testPrivileges.indexOf(80) == -1) {
+                        $("#delProject").hide();
+                    }
+                    if (testPrivileges.indexOf(81) == -1) {
+                        $("#detProject").hide();
+                    }
+                }
                 , response: {
                     statusName: 'code'
                     , statusCode: '100'
@@ -621,7 +624,23 @@
             layer.alert('请选择加班日期！');
             return false;
         }
-        $('#overWorkExport').submit();
+        var userId = $('#userId', parent.document).val();
+        var workStartDateStr = $("#workStartDateStr").val();
+        var workEndDateStr = $("#workEndDateStr").val();
+        $.ajax({
+            url: "/overWork/overWorkExport",
+            data: {"userId": userId,"workStartDateStr":workStartDateStr,"workEndDateStr":workEndDateStr},
+            type: "GET",
+            success: function (result) {
+                //1、解析并显示项目数据
+                build_pros_table(result);
+                //2、解析并显示项目信息
+                build_page_info(result);
+                //3、解析显示分页条数据
+                build_page_nav(result);
+                layer.close(index);
+            }
+        });
         reset_form("#overWorkAddModal form");
         $("#overWorkAddModal").modal('hide');
     });
@@ -640,7 +659,23 @@
             layer.alert('请选择周报日期！');
             return false;
         }
-        $('#projectWeekExport').submit();
+        var userId = $('#userId', parent.document).val();
+        var dailyStartDateStr = $("#dailyStartDateStr").val();
+        var dailyEndDateStr = $("#dailyEndDateStr").val();
+        $.ajax({
+            url: "/daily/projectWeeklyExport",
+            data: {"userId": userId,"dailyStartDateStr":dailyStartDateStr,"dailyEndDateStr":dailyEndDateStr},
+            type: "GET",
+            success: function (result) {
+                //1、解析并显示项目数据
+                build_pros_table(result);
+                //2、解析并显示项目信息
+                build_page_info(result);
+                //3、解析显示分页条数据
+                build_page_nav(result);
+                layer.close(index);
+            }
+        });
         reset_form("#projectWeekModal form");
         $("#projectWeekModal").modal('hide');
     });
@@ -680,23 +715,14 @@
                         testPrivileges = testPrivileges+item.privilegeId+"-";
                     })
                     //根据权限列表判断是否显示
-                    if (testPrivileges.indexOf(12) == -1) {
+                    if (testPrivileges.indexOf(76) == -1) {
                         $("#pro_add_modal_btn").hide();
                     }
-                    if (testPrivileges.indexOf(30) == -1) {
+                    if (testPrivileges.indexOf(77) == -1) {
                         $("#overWorkExport_btn").hide();
                     }
-                    if (testPrivileges.indexOf(31) == -1) {
+                    if (testPrivileges.indexOf(78) == -1) {
                         $("#projectWeekExport_btn").hide();
-                    }
-                    if (testPrivileges.indexOf(13) == -1) {
-                        $("#editProject").hide();
-                    }
-                    if (testPrivileges.indexOf(14) == -1) {
-                        $("#delProject").hide();
-                    }
-                    if (testPrivileges.indexOf(27) == -1) {
-                        $("#detProject").hide();
                     }
             }
         });

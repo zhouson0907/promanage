@@ -5,7 +5,8 @@ public enum CodeMsg {
 	SUCCESS("100", "处理成功！"),
     FAIL("200", "处理失败！"),
     IS_EXIST("110", "数据已存在！"),
-    INTERVAL_LT_FIVE("100001", "间隔小于5分钟，请稍后重新提交");
+    INTERVAL_LT_FIVE("100001", "间隔小于5分钟，请稍后重新提交"),
+	FAIL_UPDATE_PSD("1001","原密码输入错误");
 	
 	private final String value;
 	private final String label;

@@ -131,6 +131,7 @@ public class UserServiceImpl implements UserService {
      *
      * @param userId
      */
+    @Override
     public User getByUserId(String userId) {
         return userMapper.selectByPrimaryKey(userId);
     }

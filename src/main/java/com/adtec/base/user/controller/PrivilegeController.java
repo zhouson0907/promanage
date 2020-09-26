@@ -41,6 +41,13 @@ public class PrivilegeController {
         return Msg.success().add("resultList", pros);
     }
 
+    /***
+    * @Description: 根据用户id获取权限列表
+    * @Param: [userId]
+    * @return: com.adtec.base.common.Msg
+    * @Author: 周松
+    * @Date: 2020/9/23
+    */ 
     @RequestMapping(value = "/privilege/getPrivileges/{userId}",method = RequestMethod.GET)
     @ResponseBody
     public Msg queryPrivilegesByUserId(@PathVariable("userId") String userId){

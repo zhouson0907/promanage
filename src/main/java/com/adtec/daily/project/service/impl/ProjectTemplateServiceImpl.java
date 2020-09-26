@@ -31,4 +31,15 @@ public class ProjectTemplateServiceImpl implements ProjectTemplateService {
     public void save(ProjectTemplate projectTemplate) {
         projectTemplateMapper.insertSelective(projectTemplate);
     }
+
+    /**
+     * 查询项目模板信息
+     * @param projectIds
+     * @param templateType
+     * @return
+     */
+    @Override
+    public List<ProjectTemplate> queryByExample(List<Integer> projectIds, String templateType) {
+        return projectTemplateMapper.queryByExample(projectIds,templateType);
+    }
 }

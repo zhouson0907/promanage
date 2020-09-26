@@ -11,7 +11,23 @@
 </head>
 <body>
 <!-- 搭建显示页面 -->
-<div style="width: 1000px;">
+
+
+    <div class="layui-card-header">日报详情</div>
+    <div class="layui-card-body">
+        <div style="width: 100%;">
+            <form class="layui-form" style="margin-bottom:20px">
+            <div class="layui-inline">
+                <button class="layui-btn" onclick="history.go(-1)">
+                    <i></i>&nbsp;返回
+                </button>
+                <button type="button" class="layui-btn layui-btn-warm" id="pro_add_modal_btn">
+                    <i class="layui-icon">&#xe654;</i>&nbsp;新增
+                </button>
+            </div>
+            </form>
+        </div>
+    </div>
     <!-- 日报添加的模态框 -->
     <div class="modal fade" id="proAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -158,14 +174,6 @@
         </div>
     </div>
 
-    <!-- 按钮 -->
-    <div class="row">
-        <div class="col-md-12">
-            <button class="btn btn-primary" onclick="history.go(-1)">返回</button>
-            <button class="btn btn-primary" id="pro_add_modal_btn">新增</button>
-        </div>
-    </div>
-
     <!-- 显示表格数据 -->
     <div class="row">
         <div class="col-md-12">
@@ -195,14 +203,16 @@
         </div>
     </div>
 
-</div>
+
 <script type="text/javascript">
     var dailyId = (window.location.search).split("=")[1];
     layer = layui.layer //弹层
     var userId = $('#userId', parent.document).val();
+
     //日期标签
-    layui.use('laydate', function(){
+    layui.use(['laydate','layer'], function(){
         var laydate = layui.laydate;
+        var layer = layui.layer;
         //常规用法
         laydate.render({
             elem: '#doneDate'
@@ -210,7 +220,7 @@
         laydate.render({
             elem: '#doneDate_update_input'
         });
-    });
+
 
     var totalRecord, currentPage;
     //获取当前用户的权限列表
@@ -293,6 +303,8 @@
             delBtn.attr("del-id", item.dailyDetailId);
             //添加属性权限ID
             delBtn.attr("privilege-id",35);
+
+
             //根据权限列表判断是否显示
            /* if (privilegeList.indexOf(35) == -1) {
                 delBtn.hide();
@@ -309,7 +321,6 @@
                 .appendTo("#pros_table tbody");
         });
     }
-
     //解析显示分页信息
     function build_page_info(result) {
         $("#page_info_area").empty();
@@ -405,6 +416,25 @@
         $("#proUpdateModal").modal({
             backdrop: "static"
         });
+    });
+        //单个删除
+        $(document).on("click", ".delete_btn", function () {
+            //1、弹出是否确认删除对话框
+            var dailyContent = $(this).parents("tr").find("td:eq(1)").text();
+            var dailyDetailId = $(this).attr("del-id");
+            layer.confirm('确定删除【' + dailyContent + '】吗？', {icon: 3, title: '确认信息'}, function (index) {
+                //确认，发送ajax请求删除即可
+                $.ajax({
+                    url: "/dailyDetail/deleteDailyDetail/" + dailyDetailId,
+                    type: "DELETE",
+                    success: function (result) {
+                        layer.msg(result.msg);
+                        //回到本页
+                        to_page(currentPage);
+                    }
+                });
+            });
+        })
     });
 
     //点击未完成按钮弹出模态框。
@@ -506,27 +536,8 @@
                 }
             }
         });
-    });
 
-    //单个删除
-    $(document).on("click", ".delete_btn", function () {
-        //1、弹出是否确认删除对话框
-        var dailyContent = $(this).parents("tr").find("td:eq(1)").text();
-        var dailyDetailId = $(this).attr("del-id");
-        layer.confirm('确定删除【' + dailyContent + '】吗？', {icon: 3, title: '确认信息'}, function (index) {
-            //确认，发送ajax请求删除即可
-            $.ajax({
-                url: "/dailyDetail/deleteDailyDetail/" + dailyDetailId,
-                type: "DELETE",
-                success: function (result) {
-                    layer.msg(result.msg);
-                    //回到本页
-                    to_page(currentPage);
-                }
-            });
-        });
     });
-
     //校验输入的数据不能大于100
     function checkGreaterHunderd() {
         var precentUpdate = $("#dailyPercent_update_input").val();
@@ -542,6 +553,7 @@
             $("#greaterHunderd_add").text("");
         }
     }
+
 </script>
 </body>
 </html>

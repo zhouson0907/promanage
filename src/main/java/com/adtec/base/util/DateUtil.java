@@ -1,8 +1,5 @@
 package com.adtec.base.util;
 
-import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -129,21 +126,18 @@ public class DateUtil {
         return list;
     }
 
-    /**
-     * 校验工作日，周末，节假日
-     * @param date 需要校验的日期
-     * @return String 0-工作日，1-周末，2-节假日
-     */
+   /***
+   * @Description: 校验日期
+   * @Param: [date]
+   * @return: java.lang.String  0-工作日，1-周末，2-节假日
+   * @Author: 周松
+   * @Date: 2020/9/23
+   */
     public static String checkHoliday(Date date){
         SimpleDateFormat f=new SimpleDateFormat("yyyyMMdd");
         String dateStr = f.format(date);
-        Map<String,Object> m = new HashMap<>();
-        m.put("date",dateStr);
-        String str = HttpClientUtil.sendPost("http://api.goseek.cn/Tools/holiday", m);
-       /* JsonMapper json = new JsonMapper();
-        Map<String,Object> map = json.fromJson(str, Map.class);*/
-        Map<String,Object> map = JSON.parseObject(str,Map.class);
-        return map.get("data").toString();
+        String str = HolidayUtil.request(dateStr);
+        return str;
     }
 
     public static void main(String[] args) {

@@ -173,52 +173,45 @@ public class DailyController {
      * @throws IOException
      */
     @ResponseBody
-    @RequestMapping(value = "/daily/weeklyExport", method = RequestMethod.GET)
-    public void weeklyExport(HttpServletRequest request, HttpServletResponse response, @RequestParam("preFinishDate") String preFinishDate) throws IOException {
+
+    @RequestMapping(value = "/daily/weeklyExport", method = RequestMethod.POST)
+    public void weeklyExport(HttpServletRequest request, HttpServletResponse response, String userId,String dailyStartDateStr, String dailyEndDateStr) throws IOException {
         logger.info("导出个人周报开始");
-        String start = "";
-        String end = "";
-        if (!"".equals(preFinishDate) && preFinishDate != null) {
-            String[] preFinishDates = preFinishDate.split(" - ");
-            start = preFinishDates[0].trim();
-            end = preFinishDates[1].trim();
-        }
-//        String start = request.getParameter("dailyStartDateStr");
-//        String end = request.getParameter("dailyEndDateStr");
+        String start = dailyStartDateStr;
+        String end = dailyEndDateStr;
         logger.info("开始日期:"+start+",结束日期:"+end);
         List<User> users = new ArrayList<>();
-        User user = (User)request.getSession().getAttribute("user");
-        //1.获取该项目模板名称
-        Project project = (Project)request.getSession().getAttribute("project");
-        Department department = (Department)request.getSession().getAttribute("department");
-        user.setProjectLeaderName(project.getUserName());
-        user.setDeptName(department.getDeptName());
-        user.setProjectCode(project.getProjectCode());
+        User user = userService.getByUserId(userId);
+        List<Project> projects = projectService.getProjectByUser(userId);
         users.add(user);
-        ProjectTemplateExample projectTemplateExample = new ProjectTemplateExample();
-        ProjectTemplateExample.Criteria criteria = projectTemplateExample.createCriteria();
-        criteria.andProjectIdEqualTo(project.getId());
-        criteria.andTemplateTypeEqualTo(Constants.PERSONAL_WEEKLY);
-        List<ProjectTemplate> templates = projectTemplateService.selectByExample(projectTemplateExample);
-        if(templates!=null&&templates.size()>0){
-            ProjectTemplate  template = templates.get(0);
+        //用于存放项目id集合
+        List<Integer> projectIds = new ArrayList<>();
+        for (Project project : projects) {
+            projectIds.add(project.getId());
+        }
+        List<ProjectTemplate> templates = projectTemplateService.queryByExample(projectIds, Constants.PERSONAL_WEEKLY);
+        if(templates!=null&&templates.size()>0) {
+            ProjectTemplate template = templates.get(0);
             String fileName = "";
             Map<String, Object> sheetMap = new HashMap<>();
             List<Map<String, Object>> reportList = new ArrayList<>();
-            if(Constants.CAITC_WEEKLY.equals(template.getTemplateFileName())){//长安家族信托
-                reportList = dailyService.caitcWeeklyExport(users,start,end);
-                fileName = "工作周报_"+user.getUserName()+"_"+start.replaceAll("-","")+"_"+end.replaceAll("-","");
-            }else if(Constants.ADTEC_WEEKLY.equals(template.getTemplateFileName())){//先进数通
-                reportList = dailyService.adtecWeeklyExport(users,start,end);
-                fileName = "EAI-"+user.getUserName()+"-"+start.replaceAll("-","")+"-"+end.replaceAll("-","");
+            if (Constants.CAITC_WEEKLY.equals(template.getTemplateFileName())) {//长安家族信托
+                reportList = dailyService.caitcWeeklyExport(users, start, end);
+                fileName = "工作周报_" + user.getUserName() + "_" + start.replaceAll("-", "") + "_" + end.replaceAll("-", "");
+            } else if (Constants.ADTEC_WEEKLY.equals(template.getTemplateFileName())) {//先进数通
+                reportList = dailyService.adtecWeeklyExport(users, start, end);
+                fileName = "EAI-" + user.getUserName() + "-" + start.replaceAll("-", "") + "-" + end.replaceAll("-", "");
             }
             sheetMap.put("sheets", reportList);
             TemplateParseUtil templateParseUtil = new TemplateParseUtil();
-            templateParseUtil.downloadExcel(response, sheetMap, template.getTemplateFileName(),fileName);
-        }else{
+            templateParseUtil.downloadExcel(response, sheetMap, template.getTemplateFileName(), fileName);
+        }
+        else{
             logger.info("周报模板未配置，请配置模板！");
         }
         logger.info("导出个人周报结束");
+
+
     }
 
     /**
@@ -229,23 +222,21 @@ public class DailyController {
      */
     @ResponseBody
     @RequestMapping(value = "/daily/projectWeeklyExport", method = RequestMethod.GET)
-    public void projectWeeklyExport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void projectWeeklyExport(HttpServletRequest request, HttpServletResponse response,String userId,String dailyStartDateStr, String dailyEndDateStr) throws IOException {
         logger.info("导出项目周报开始");
-        String startDate = request.getParameter("dailyStartDateStr");
-        String endDate = request.getParameter("dailyEndDateStr");
+        String startDate = dailyStartDateStr;
+        String endDate = dailyEndDateStr;
         logger.info("开始日期:" + startDate + ",结束日期:" + endDate);
         //1.查询当前用户所属项目下的所有用户
-        Project project = (Project) request.getSession().getAttribute("project");
-        Department department = (Department) request.getSession().getAttribute("department");
-        //TCompany company =  tCompanyService.selectByDeptId(department.getDeptId());
-        //TUser user = (TUser)request.getSession().getAttribute("user");
-
+        List<Project> projects = projectService.getProjectByUser(userId);
+        for (Project project : projects) {
             List<User> users = userService.getAllUserByProjectIdAndCompanyId(project.getId(), 0, Constants.ROLE_TYPE_PROJECT);
             Map<String, Object> sheetMap = dailyService.caitcProjectWeeklyExport(users, startDate, endDate);
             String fileName = "工作周报-家族信托项目_" + startDate.replaceAll("-", "") + "_" + endDate.replaceAll("-", "");
             TemplateParseUtil templateParseUtil = new TemplateParseUtil();
             templateParseUtil.downloadExcel(response, sheetMap, Constants.CAITC_PROJECT_WEEKLY, fileName);
             logger.info("导出项目周报结束");
+        }
     }
 
     /**

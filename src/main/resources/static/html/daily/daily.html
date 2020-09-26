@@ -104,7 +104,7 @@
 <div class="layui-card-header">日报列表</div>
 <div class="layui-card-body">
 <div style="width: 100%;">
-        <form id="weeklyExport" method="get" enctype="multipart/form-data" action="/daily/weeklyExport" class="layui-form">
+        <form id="weeklyExport" class="layui-form" style="margin-bottom:20px">
             日报日期：
             <div class="layui-inline">
                 <input type="text" name="dailyStartDateStr" class="form-control" placeholder="日报开始日期"
@@ -118,7 +118,7 @@
                        id="dailyEndDateStr">
             </div>
             <div class="layui-inline" style="margin-left: 45px">
-                <button class="layui-btn" id="weeklyExport_btn">
+                <button class="layui-btn" id="weeklyExport_btn" >
                     <i></i>&nbsp;导出周报
                 </button>
                 <button type="button" class="layui-btn layui-btn-warm" id="add_daily_btn">
@@ -155,7 +155,6 @@
         <div class="col-md-6" id="page_nav_area">
         </div>
     </div>
-</div>
 <script type="text/javascript">
     layui.use(['laydate','layer'], function () {
         var laydate = layui.laydate;
@@ -406,7 +405,22 @@
             layer.alert('请选择日报日期！');
             return false;
         }
-        $('#weeklyExport').submit();
+        var dailyStartDateStr = $("#dailyStartDateStr").val();
+        var dailyEndDateStr = $("#dailyEndDateStr").val();
+        $.ajax({
+            url: "/daily/weeklyExport",
+            data: {"userId": userId,"dailyStartDateStr":dailyStartDateStr,"dailyEndDateStr":dailyEndDateStr},
+            type: "POST",
+            success: function (result) {
+                //1、解析并显示项目数据
+                build_pros_table(result);
+                //2、解析并显示项目信息
+                build_page_info(result);
+                //3、解析显示分页条数据
+                build_page_nav(result);
+                layer.close(index);
+            }
+        });
     });
 
     //校验输入的数据不能大于100

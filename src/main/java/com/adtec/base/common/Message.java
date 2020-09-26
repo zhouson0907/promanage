@@ -54,7 +54,13 @@ public class Message {
         result.setMsg(msg);
         return result;
     }
-
+    //1001-失败
+    public static Message failUpdatePsd(){
+        Message result = new Message();
+        result.setCode(CodeMsg.FAIL_UPDATE_PSD.getValue());
+        result.setMsg(CodeMsg.FAIL_UPDATE_PSD.getLabel());
+        return result;
+    }
     //110-数据已存在
     public static Message dateExist(){
         Message result = new Message();

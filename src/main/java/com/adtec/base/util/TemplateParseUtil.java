@@ -1,10 +1,11 @@
 package com.adtec.base.util;
 
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.poi.util.IOUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -16,6 +17,7 @@ import java.util.Map;
 public class TemplateParseUtil {
 
 	public static boolean finishFlag = false;
+
 
 	/**
 	 * 解析模板生成Excel
@@ -102,14 +104,15 @@ public class TemplateParseUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
+			if (out != null) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			if (inputStream != null) {
 				inputStream.close();
-			}
-			if (out != null) {
-				out.close();
-			}
-			if (file != null) {
-				file.delete();
 			}
 		}
 	}

@@ -27,4 +27,14 @@ public interface ProjectTemplateService {
      * @param projectTemplate
      */
     void save(ProjectTemplate projectTemplate);
+    
+    /***
+    * @Description: 查询项目模板信息
+    * @Param: [example]
+    * @return: java.util.List<com.adtec.daily.project.entity.ProjectTemplate>
+    * @Author: 周松
+    * @Date: 2020/9/25
+    */ 
+    List<ProjectTemplate> queryByExample(List<Integer> projectIds,String templateType);
+
 }

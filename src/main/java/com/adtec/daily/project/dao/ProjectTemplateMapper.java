@@ -46,6 +46,7 @@ public interface ProjectTemplateMapper {
     int updateByExample(@Param("record") ProjectTemplate record, @Param("example") ProjectTemplateExample example);
 
     int updateByPrimaryKeySelective(ProjectTemplate record);
+    
 
     @Update({
         "update t_project_template",
@@ -62,4 +63,16 @@ public interface ProjectTemplateMapper {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(ProjectTemplate record);
+
+
+
+
+    /***
+    * @Description: 查询项目模板信息
+    * @Param: [example]
+    * @return: java.util.List<com.adtec.daily.project.entity.ProjectTemplate>
+    * @Author: 周松
+    * @Date: 2020/9/25
+    */ 
+    List<ProjectTemplate> queryByExample(List<Integer> projectIds,String templateType);
 }

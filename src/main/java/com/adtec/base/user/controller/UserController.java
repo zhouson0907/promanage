@@ -240,20 +240,20 @@ public class UserController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/user/updatePasswprd", method = RequestMethod.POST)
-    public Message updatePasswprd(User user) throws Exception {
+    @RequestMapping(value = "/user/updatePassword", method = RequestMethod.POST)
+    public Message updatePasswprd(@RequestBody User user) throws Exception {
         // 查询原始用户信息
         User oriUser = userService.getByUserId(user.getUserId());
         // 原始用户密码
         String oriPassword = oriUser.getPassword();
         // 新密码
         String newPassword = user.getPassword();
-        if (passwordEncoder.matches(passwordEncoder.encode(user.getOldPassword()), oriPassword)) {
+        if (passwordEncoder.matches(user.getOldPassword(), oriPassword)) {
             user.setPassword(passwordEncoder.encode(newPassword));
             userService.updateUser(user);
             return Message.success();
         } else {
-            return Message.fail();
+            return Message.failUpdatePsd();
         }
     }
 
@@ -265,7 +265,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/user/queryUserByRoleIdForProjectUser", method = RequestMethod.POST)
     public Message queryUserByRoleIdForProjectUser() {
-        List<User> list = userProjectService.queryUserByRoleIdForProjectUser(Integer.parseInt(Constants.ROLE_ID_COMPANY_LEADER), Constants.ROLE_TYPE_DEPARTMENT);
+        List<User> list = userProjectService.queryUserByRoleIdForProjectUser(Integer.parseInt(Constants.ROLE_ID_PROJECT_BOSS), Constants.ROLE_TYPE_PROJECT);
         return Message.success().addExtend("pros", list);
     }
 

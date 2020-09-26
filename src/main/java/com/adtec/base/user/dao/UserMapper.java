@@ -107,4 +107,10 @@ public interface UserMapper {
 
     // 查询公司角色为项目经理，新增项目信息时下拉显示项目经理
     List<User> selectUserByRoleIdForProjectUser(@Param("roleId") int roleId, @Param("roleType") String roleType);
+
+
+
+
+
+    List<User> queryUsers();
 }

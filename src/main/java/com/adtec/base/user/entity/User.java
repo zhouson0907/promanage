@@ -1,17 +1,13 @@
 package com.adtec.base.user.entity;
 
 import com.adtec.base.common.EntityPub;
-
 import java.util.Date;
 import java.util.List;
 
 public class User extends EntityPub {
     private String userId;
-
     private String userName;
-
     private Integer roleId;
-
     private String password;
     //账号是否可用。默认为1（可用）
     private boolean enabled;
@@ -115,10 +111,12 @@ public class User extends EntityPub {
         this.privilegeList = privilegeList;
     }
 
+    @Override
     public String getUserId() {
         return userId;
     }
 
+    @Override
     public void setUserId(String userId) {
         this.userId = userId == null ? null : userId.trim();
     }

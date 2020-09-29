@@ -29,7 +29,6 @@ public class DemandTrackServiceImpl implements DemandTrackService {
     @Override
     public List<DemandTrackVo> getDemandTrackList(DemandTrackVo demandTrack) {
         DemandTrackExample de = new DemandTrackExample();
-
         DemandTrackExample.Criteria ca = de.createCriteria();
         if (!StringUtils.isEmpty(demandTrack.getDemandId())){
             ca.andDemandIdLike("%" + demandTrack.getDemandId() + "%");

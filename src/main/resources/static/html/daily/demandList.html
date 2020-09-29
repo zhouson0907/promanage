@@ -188,10 +188,12 @@
             elem: '#demandRespoId' //指定列表容器
             ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
                 var lis = [];
+                var userId = $('#userId', parent.document).val();
                 //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 $.ajax({
                     url:'/user/getProjectUserList',
                     type: "POST",
+                    data:{"userId":userId},
                     success:function(res){
                         //假设你的列表返回在data集合中
                         layui.each(res.data, function(index, item){

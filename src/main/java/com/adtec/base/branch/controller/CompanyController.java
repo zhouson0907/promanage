@@ -1,6 +1,7 @@
 package com.adtec.base.branch.controller;
 
 import com.adtec.base.branch.entity.Department;
+import com.adtec.base.branch.service.DepartmentService;
 import com.adtec.base.common.Message;
 import com.adtec.base.common.Msg;
 import com.adtec.base.branch.entity.Company;
@@ -9,6 +10,7 @@ import com.adtec.base.user.entity.User;
 import com.adtec.base.user.service.UserService;
 import com.adtec.base.util.Constants;
 import com.adtec.daily.project.entity.Project;
+import com.adtec.daily.project.service.ProjectService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,12 @@ public class CompanyController {
         @Autowired
         private UserService userService;
 
+        @Autowired
+        private ProjectService projectService;
+
+        @Autowired
+        private DepartmentService departmentService;
+
         /**
          * 返回所有的公司信息
          */
@@ -58,13 +66,19 @@ public class CompanyController {
      */
     @ResponseBody
     @RequestMapping(value = "/user/getProjectUserList", method = RequestMethod.POST)
-    public Message getProjectUserList(HttpServletRequest request, HttpServletResponse response) {
+    public Message getProjectUserList(HttpServletRequest request, HttpServletResponse response,String userId) {
         try {
-            Project project = (Project) request.getSession().getAttribute("project");
-            Department department = (Department) request.getSession().getAttribute("department");
+
+            Department department = departmentService.selectByUserId(userId);
             Company company = companyService.selectByDeptId(department.getDeptId());
             //TUser user = (TUser)request.getSession().getAttribute("user");
-            List<User> users = userService.getAllUserByProjectIdAndCompanyId(project.getId(), company.getCompanyId(), Constants.ROLE_TYPE_PROJECT);
+            List<Project> projects = projectService.getProjectByUser(userId);
+            List<User> users = null;
+            if(projects.size()>0 && projects!=null) {
+                for (Project project : projects) {
+                    users = userService.getAllUserByProjectIdAndCompanyId(project.getId(), company.getCompanyId(), Constants.ROLE_TYPE_PROJECT);
+                }
+            }
             return Message.success().add(users);
         } catch (NullPointerException e) {
             e.printStackTrace();

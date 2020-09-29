@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="GROUP_BY_SEVERITY" value="true" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -9,7 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e67cc376-77eb-46ab-86f7-857026dc2641" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/SWG-CBC-EAI_项目补贴表（2020年09月）_服-EAI-201751_王林柱.xls" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/application.pid" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/user/controller/UserWechatLogin.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/util/HolidayUtil.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/static/main.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/template/adtecWeekly.ftl" afterDir="false" />
@@ -363,30 +368,13 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/PayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/PayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/common/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/common/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/user/controller/PrivilegeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/user/controller/PrivilegeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/user/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/user/dao/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/user/dao/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/user/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/user/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/user/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/user/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/util/CodeMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/util/CodeMsg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/util/DateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/util/DateUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/util/SpringContextHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/util/SpringContextHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/util/TemplateParseUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/util/TemplateParseUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/daily/project/dao/ProjectTemplateMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/daily/project/dao/ProjectTemplateMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/daily/project/entity/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/daily/project/entity/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/daily/project/entity/ProjectTemplateExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/daily/project/entity/ProjectTemplateExample.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/branch/controller/CompanyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/branch/controller/CompanyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/base/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/base/config/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/daily/project/service/DepartmentService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/daily/project/service/ProjectTemplateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/daily/project/service/ProjectTemplateService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/daily/project/service/impl/ProjectTemplateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/daily/project/service/impl/ProjectTemplateServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/daily/report/controller/DailyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/daily/report/controller/DailyController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/adtec/daily/report/controller/OverWorkController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/adtec/daily/report/controller/OverWorkController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/daily/ProjectTemplateMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/daily/ProjectTemplateMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/html/daily/daily.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/html/daily/daily.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/html/daily/dailyAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/html/daily/dailyAdd.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/html/daily/project.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/html/daily/project.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/html/daily/projectDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/html/daily/projectDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/daily/DemandTrackMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/daily/DemandTrackMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/html/daily/demandList.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/html/daily/demandList.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -405,6 +393,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/zs1061674782/promanage" />
+      </set>
+    </option>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -442,7 +437,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -570,7 +565,13 @@
       <workItem from="1601080088095" duration="10977000" />
       <workItem from="1601100399169" duration="3687000" />
       <workItem from="1601104262978" duration="6996000" />
-      <workItem from="1601111785905" duration="6489000" />
+      <workItem from="1601111785905" duration="8070000" />
+      <workItem from="1601126206992" duration="234000" />
+      <workItem from="1601167180991" duration="2269000" />
+      <workItem from="1601186668690" duration="6252000" />
+      <workItem from="1601254206509" duration="3436000" />
+      <workItem from="1601273475380" duration="2919000" />
+      <workItem from="1601339625974" duration="2796000" />
     </task>
     <task id="LOCAL-00001">
       <created>1600596087958</created>
@@ -659,10 +660,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="196" y="165" width="1586" height="768" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600650660909" />
-    <state x="330" y="218" key="FileChooserDialogImpl" timestamp="1601101452512">
+    <state x="330" y="218" key="FileChooserDialogImpl" timestamp="1601190484015">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="330" y="218" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1601101452512" />
+    <state x="330" y="218" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1601190484015" />
     <state x="738" y="421" key="Github.CreateGistDialog" timestamp="1600648798045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -675,54 +676,54 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="568" y="175" key="Github.UntrackedFilesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600601824259" />
-    <state width="1867" height="196" key="GridCell.Tab.0.bottom" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.0.bottom" timestamp="1601341388860">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
-    <state width="1867" height="196" key="GridCell.Tab.0.center" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388860" />
+    <state width="1750" height="194" key="GridCell.Tab.0.center" timestamp="1601341388860">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
-    <state width="1867" height="196" key="GridCell.Tab.0.left" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388860" />
+    <state width="1750" height="194" key="GridCell.Tab.0.left" timestamp="1601341388860">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
-    <state width="1867" height="196" key="GridCell.Tab.0.right" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388860" />
+    <state width="1750" height="194" key="GridCell.Tab.0.right" timestamp="1601341388860">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
-    <state width="1867" height="196" key="GridCell.Tab.1.bottom" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388860" />
+    <state width="1750" height="194" key="GridCell.Tab.1.bottom" timestamp="1601341388694">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
-    <state width="1867" height="196" key="GridCell.Tab.1.center" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388694" />
+    <state width="1750" height="194" key="GridCell.Tab.1.center" timestamp="1601341388694">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
-    <state width="1867" height="196" key="GridCell.Tab.1.left" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388694" />
+    <state width="1750" height="194" key="GridCell.Tab.1.left" timestamp="1601341388694">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
-    <state width="1867" height="196" key="GridCell.Tab.1.right" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388694" />
+    <state width="1750" height="194" key="GridCell.Tab.1.right" timestamp="1601341388694">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
-    <state width="1867" height="196" key="GridCell.Tab.2.bottom" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388694" />
+    <state width="1750" height="194" key="GridCell.Tab.2.bottom" timestamp="1601341388695">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
-    <state width="1867" height="196" key="GridCell.Tab.2.center" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388695" />
+    <state width="1750" height="194" key="GridCell.Tab.2.center" timestamp="1601341388694">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
-    <state width="1867" height="196" key="GridCell.Tab.2.left" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388694" />
+    <state width="1750" height="194" key="GridCell.Tab.2.left" timestamp="1601341388694">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
-    <state width="1867" height="196" key="GridCell.Tab.2.right" timestamp="1601120908667">
+    <state width="1750" height="194" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388694" />
+    <state width="1750" height="194" key="GridCell.Tab.2.right" timestamp="1601341388695">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1867" height="196" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601120908667" />
+    <state width="1750" height="194" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1601341388695" />
     <state x="437" y="198" width="1046" height="650" key="IDE.errors.dialog" timestamp="1600772349375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -735,10 +736,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="555" y="182" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600595805417" />
-    <state x="686" y="102" width="1141" height="883" key="SettingsEditor" timestamp="1601038165914">
+    <state x="686" y="102" width="1141" height="883" key="SettingsEditor" timestamp="1601199553108">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="686" y="102" width="1141" height="883" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1601038165914" />
+    <state x="686" y="102" width="1141" height="883" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1601199553108" />
     <state x="724" y="234" key="Vcs.Push.Dialog.v2" timestamp="1600950001108">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -759,18 +760,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="348" y="193" width="1223" height="749" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1601088260841" />
-    <state x="1154" y="110" width="717" height="804" key="find.popup" timestamp="1601119689333">
+    <state x="977" y="164" width="717" height="804" key="find.popup" timestamp="1601341906162">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1154" y="110" width="717" height="804" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601119689333" />
+    <state x="977" y="164" width="717" height="804" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1601341906162" />
     <state x="743" y="435" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1600601630044">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="743" y="435" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600601630044" />
-    <state x="37" y="93" key="new project wizard" timestamp="1600670261344">
+    <state x="206" y="63" key="new project wizard" timestamp="1601123660543">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="37" y="93" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1600670261344" />
+    <state x="206" y="63" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1601123660543" />
     <state x="701" y="223" key="refactoring.ChangeSignatureDialog" timestamp="1601004970240">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -801,11 +802,6 @@
           <url>jar://$PROJECT_DIR$/../../work/tools/repository/cn/afterturn/easypoi-base/4.1.0/easypoi-base-4.1.0-sources.jar!/cn/afterturn/easypoi/excel/ExcelExportUtil.java</url>
           <line>88</line>
           <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/adtec/daily/report/controller/OverWorkController.java</url>
-          <line>121</line>
-          <option name="timeStamp" value="42" />
         </line-breakpoint>
         <breakpoint type="java-exception">
           <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />

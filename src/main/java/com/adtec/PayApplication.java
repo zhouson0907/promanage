@@ -22,6 +22,7 @@ public class PayApplication  implements ApplicationListener<ContextRefreshedEven
 //        SpringApplication.run(PayApplication.class, args);
     }
 
+
     @Bean
     public FreeMarkerConfigurer freeMarkerConfigurer(){
         FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();

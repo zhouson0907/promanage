@@ -186,8 +186,10 @@ public class DailyController {
         users.add(user);
         //用于存放项目id集合
         List<Integer> projectIds = new ArrayList<>();
-        for (Project project : projects) {
-            projectIds.add(project.getId());
+        if(projects!=null && projects.size()>0) {
+            for (Project project : projects) {
+                projectIds.add(project.getId());
+            }
         }
         List<ProjectTemplate> templates = projectTemplateService.queryByExample(projectIds, Constants.PERSONAL_WEEKLY);
         if(templates!=null&&templates.size()>0) {
@@ -229,13 +231,15 @@ public class DailyController {
         logger.info("开始日期:" + startDate + ",结束日期:" + endDate);
         //1.查询当前用户所属项目下的所有用户
         List<Project> projects = projectService.getProjectByUser(userId);
-        for (Project project : projects) {
-            List<User> users = userService.getAllUserByProjectIdAndCompanyId(project.getId(), 0, Constants.ROLE_TYPE_PROJECT);
-            Map<String, Object> sheetMap = dailyService.caitcProjectWeeklyExport(users, startDate, endDate);
-            String fileName = "工作周报-家族信托项目_" + startDate.replaceAll("-", "") + "_" + endDate.replaceAll("-", "");
-            TemplateParseUtil templateParseUtil = new TemplateParseUtil();
-            templateParseUtil.downloadExcel(response, sheetMap, Constants.CAITC_PROJECT_WEEKLY, fileName);
-            logger.info("导出项目周报结束");
+        if(projects != null && projects.size()>0) {
+            for (Project project : projects) {
+                List<User> users = userService.getAllUserByProjectIdAndCompanyId(project.getId(), 0, Constants.ROLE_TYPE_PROJECT);
+                Map<String, Object> sheetMap = dailyService.caitcProjectWeeklyExport(users, startDate, endDate);
+                String fileName = "工作周报-家族信托项目_" + startDate.replaceAll("-", "") + "_" + endDate.replaceAll("-", "");
+                TemplateParseUtil templateParseUtil = new TemplateParseUtil();
+                templateParseUtil.downloadExcel(response, sheetMap, Constants.CAITC_PROJECT_WEEKLY, fileName);
+                logger.info("导出项目周报结束");
+            }
         }
     }
 

@@ -551,7 +551,7 @@
     </update>
 
     <select id="select" parameterType="com.adtec.daily.demand.entity.DemandTrackExample"
-            resultType="com.adtec.daily.demand.entity.DemandTrack">
+            resultType="com.adtec.daily.demand.entity.DemandTrackVo">
         SELECT tdt.id,
         tp.project_name as "projectName",
         tdt.demand_id as "demandId",

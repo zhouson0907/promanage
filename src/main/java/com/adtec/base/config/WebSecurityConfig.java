@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        };
     }
 
+    @Override
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();

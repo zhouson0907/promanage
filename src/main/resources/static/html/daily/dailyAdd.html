@@ -18,7 +18,7 @@
         <div style="width: 100%;">
             <form class="layui-form" style="margin-bottom:20px">
             <div class="layui-inline">
-                <button class="layui-btn" onclick="history.go(-1)">
+                <button class="layui-btn" type="button" id="backButton">
                     <i></i>&nbsp;返回
                 </button>
                 <button type="button" class="layui-btn layui-btn-warm" id="pro_add_modal_btn">
@@ -432,7 +432,7 @@
                         //回到本页
                         to_page(currentPage);
                     }
-                });
+            });
             });
         })
     });
@@ -447,6 +447,9 @@
         $("#doneDate").val((new Date()).Format('yyyy-MM-dd'));
     });*/
 
+    $("#backButton").click(function(){
+        history.go(-1);
+    })
     //获取项目信息
     function getDailyDetailInfo(id) {
         $.ajax({

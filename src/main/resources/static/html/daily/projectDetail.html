@@ -10,20 +10,26 @@
     <script src="/static/js/bootstrap/js/bootstrap.js"></script>
 </head>
 <body>
-<div class="layui-card">
-    <div class="layui-card-header">
-        <!-- 搭建显示页面 -->
-        <!-- 标题 -->
-        <div>
-            <p>项目编号：<span id="pro_code"></span>&nbsp;&nbsp;&nbsp;&nbsp;项目名称：<span id="pro_name"></span></p>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-card">
+            <div>
+                <p>项目编号：<span id="pro_code"></span>&nbsp;&nbsp;&nbsp;&nbsp;项目名称：<span id="pro_name"></span></p>
+            </div>
+            <div class="layui-card-body">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <button class="layui-btn" onclick="history.go(-1)" >
+                            <i></i>&nbsp;返回
+                        </button>
+                        <button class="layui-btn layui-btn-normal" id="proUser_add_btn" privilege-id="28">
+                            <i class="layui-icon">&#xe654;</i>&nbsp;新增
+                        </button>
+                    </div>
+                </div>
+                <table id="projectDetail" class="layui-table" lay-filter="projectDetailEvent"></table>
+            </div>
         </div>
-        <!-- 按钮 -->
-        <button class="layui-btn" onclick="history.go(-1)">返回</button>
-        <button class="layui-btn layui-btn-normal" id="proUser_add_btn" privilege-id="28">新增</button>
-    </div>
-    <!-- 显示表格数据 -->
-    <div class="layui-card-body">
-        <table id="projectDetail" class="layui-table" lay-filter="projectDetailEvent"></table>
     </div>
 </div>
 
@@ -254,7 +260,7 @@
     //点击新增，跳转到项目成员新增页面
     $(document).on("click", "#proUser_add_btn", function () {
         var id = this.getAttribute("project-id");
-        window.location.href = "/html/project/projectUserAdd.jsp?projectId=" + id;
+        window.location.href = "/html/daily/projectUserAdd.html?projectId=" + id;
 
     });
 
@@ -286,9 +292,9 @@
                     testPrivileges = testPrivileges+item.privilegeId+"-";
                 })
                 //根据权限列表判断是否显示
-               if (privilegeList.indexOf(28) == -1) {
+               /*if (privilegeList.indexOf(28) == -1) {
                      $("#proUser_add_btn").hide();
-                 }
+                 }*/
             }
         });
     }
